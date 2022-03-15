@@ -10,7 +10,7 @@
 //     });
 const url = "http://localhost:3000/users";
 
-//Get all users
+//GET ALL USERS
 async function getAllUsers() {
 
     const response = await fetch(url);
@@ -20,10 +20,9 @@ async function getAllUsers() {
 
 getAllUsers();
 
-//get single user
-let userId;
+//GET SINGLE USER
+
 async function getUser(userId){
-    
     const response = await fetch (url+`/${userId}`);
     const data = await response.json();
     console.log(data);
@@ -31,7 +30,10 @@ async function getUser(userId){
 
 getUser(3);
 
-//create a new user
+//CREATE NEW USER
+
+//user object
+
 let user = {
     firstName: 'Ohene Adjei',
     lastName: 'Effah',
@@ -39,9 +41,6 @@ let user = {
     gender: 'male',
     username: 'oheneadj'
 };
-//user object
-
-
 //POST method
 async function addUser (userInfo){
     const response = await fetch (url, {
@@ -55,7 +54,7 @@ async function addUser (userInfo){
 
 addUser(user);
 
-//Update user
+//UPDATE USER
 
 let userData = {
     firstName: 'Ohene Adjei',
@@ -64,12 +63,26 @@ let userData = {
 };
 
 async function updateUser (userId, userData){
+    
     const response = await fetch (`${url}/${userId}`, {
         method: "PATCH",
         body: JSON.stringify(userData),
         headers: { 'Content-Type': 'application/json'}
     });
     const data = await response.json();
-    console.log(`The Updated data is ${data}`); 
+    console.log(data); 
 }
 updateUser(3, userData);
+
+
+//DELETE USER
+
+async function deleteUser(userId){
+    const response = await fetch (`${url}/${userId}`, {
+        method: "DELETE"
+    });
+    const data = await response.json();
+    console.log(data); 
+}
+
+deleteUser(3);
